@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rofiozag_web Portfolio | Creative Web Developer | Blog</title>
+    <link rel="stylesheet" href="style2.css" />
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #f0f0f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        header h1 {
+            font-size: 3em;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+        }
+        nav a {
+            color: #cbd5e1;
+            margin: 0 15px;
+            font-weight: 600;
+            font-size: 1.1em;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        nav a:hover {
+            background-color: #fff;
+            color: #764ba2;
+            box-shadow: 0 0 10px #fff;
+        }
+        main {
+            max-width: 1000px;
+            margin: 40px auto;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+        section {
+            margin-bottom: 50px;
+        }
+        section h2 {
+            font-size: 2.5em;
+            font-weight: 800;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #764ba2;
+            padding-bottom: 10px;
+            color: #e0e0e8;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+        }
+        #about p, #projects p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #d1d5db;
+        }
+        #blog #blog-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .blog-post-preview {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .blog-post-preview:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(118, 75, 162, 0.7);
+        }
+        .blog-post-preview h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #fff;
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
+        }
+        .blog-post-preview p {
+            color: #d1d5db;
+            font-size: 1em;
+            line-height: 1.4;
+        }
+        .blog-post-preview a {
+            color: #a78bfa;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .blog-post-preview a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2em;
+            }
+            nav a {
+                margin: 0 8px;
+                font-size: 1em;
+            }
+            main {
+                padding: 30px 20px;
+            }
+            section h2 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Blog</h1>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#blog">Blog</a>
+            <a href="editor.html">Create Blog Post</a>
+        </nav>
+    </header>
+    <main>
+        <section id="about">
+            <h2>About Me</h2>
+            <p>I'm Owen, a passionate web developer with over 1+ years of experience in creating stunning, user-friendly websites and applications. I specialize in modern web technologies and love bringing creative ideas to life through code.</p>
+            <p>My journey in web development started with a curiosity for how websites work, and it has evolved into a career where I help businesses and individuals establish their online presence with cutting-edge solutions.</p>
+        </section>
+        <section id="blog">
+            <h2>My Blog</h2>
+            <div id="blog-posts"></div>
+        </section>
+    </main>
+    <script>
+        // Load and display blog posts
+        document.addEventListener('DOMContentLoaded', function() {
+            const blogPostsDiv = document.getElementById('blog-posts');
+            const posts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+
+            if (posts.length === 0) {
+                blogPostsDiv.innerHTML = '<p>No blog posts yet. <a href="editor.html">Create your first post</a></p>';
+            } else {
+                posts.reverse().forEach(post => {
+                    const postDiv = document.createElement('div');
+                    postDiv.className = 'blog-post-preview';
+                    postDiv.innerHTML = `
+                        <h3><a href="post.html?id=${post.id}">${post.title}</a></h3>
+                        <p>${new Date(post.date).toLocaleDateString()}</p>
+                        <p>${post.content.replace(/<[^>]*>/g, '').substring(0, 100)}...</p>
+                    `;
+                    blogPostsDiv.appendChild(postDiv);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
